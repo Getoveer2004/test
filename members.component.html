@@ -1,0 +1,78 @@
+<h2>社員一覧</h2>
+<div>
+  <label>社員名:
+    <input type="text" #memberName>
+  </label>
+  <button (click)="add(memberName.value); memberName.value = ''">追加</button>
+</div>
+<ul class="members">
+  <li *ngFor="let member of members">
+    <a routerLink="/detail/{{ member.id }}">
+      <span class="badge">{{ member.id }}</span> {{ member.name }}
+    </a>
+    <button class="delete" title="社員の削除" (click)="delete(member)">x</button>
+  </li>
+</ul>
+<form [formGroup]="reactiveForm">
+  <h3>リアクティブフォーム</h3>
+  <div class="container">
+    <div class="form">
+      <label for="name">名前</label>
+      <span *ngIf="ctrl('name').hasError('dirtyAndNull')">*必須項目です1</span>
+      <span *ngIf="ctrl('name').hasError('required') && ctrl('name').touched">*必須項目です2</span>
+      <input type="text" id="name" formControlName="name">
+    </div>
+    <div class="form">
+      <label for="kana">カナ</label>
+      <input type="text" id="kana" formControlName="kana">
+    </div>
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>掲載期間（開始日）</mat-label>
+      <input matInput [matDatepicker]="startPicker" formControlName="kikan1">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>掲載期間（終了日）</mat-label>
+      <input matInput [matDatepicker]="endPicker" formControlName="kikan2">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker color="primary"></mat-datepicker>
+    </mat-form-field>
+    <div class="form">
+      <label>好きなもの</label>
+      <select id="favorite" formControlName="favorite">
+        <option value="ケーキ">ケーキ</option>
+        <option value="プリン">プリン</option>
+        <option value="アイス">アイス</option>
+      </select>
+    </div>
+    <div class="label-margin">
+      <input type="radio" id="gender1" value="男" formControlName="gender"><label for="gender1">男</label>
+      <input type="radio" id="gender2" value="女" formControlName="gender"><label for="gender2">女</label>
+    </div>
+    <div class="form">
+      <label>誕生日</label>
+      <input type="date" id="birth" formControlName="birth">
+    </div>
+    <div class="label-margin">
+      <input type="checkbox" id="check1" formControlName="pet">
+      <label for="check1">猫</label>
+      <input type="checkbox" id="check2" formControlName="pet">
+      <label for="check2">犬</label>
+      <input type="checkbox" id="check3" formControlName="pet">
+      <label for="check3">ハムスター</label>
+    </div>
+
+  </div>
+  <div class="margin-auto">
+    <button (click)="output()" [disabled]="reactiveForm.invalid">検索</button><br>
+  </div>
+  <li *ngFor="let player of players">
+    <a routerLink="/detail/{{ player.playerId }}">
+      <span class="badge">{{ player.playerId }}</span> {{ player.playerName }}
+    </a>
+    <button class="delete" title="社員の削除" (click)="delete(member)">x</button>
+  </li>
+
+</form>
+
