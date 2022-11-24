@@ -182,5 +182,9 @@ foreach($aryInsert as $key1 => $val1){
 //実行処理
 $sth -> execute();
 
+// IN条件のバインド。ポジションが指定されていない場合は配列化が空なので実行されない。
+        for($i = 0; $i < count($positions); $i++){
+            $stmt->bindParam($i + 2, $positions[$i]); // 1つ目の?マークはLIKE条件にあるため、IN条件の?マークは2以降を指定
+        }
 
 ?>
