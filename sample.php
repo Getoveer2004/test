@@ -141,5 +141,46 @@ function pdo_stmt_bind_values($stmt, $stmt_params) {
     return true;
 }
 
+//配列設定
+$aryInsert = [];
+$aryInsert[] = ['name' => 'のび太', 'gender' => 'man', 'type' => 'human'];
+$aryInsert[] = ['name' => 'ドラえもん', 'gender' => 'man', 'type' => 'robot'];
+$aryInsert[] = ['name' => 'ジャイアン', 'gender' => 'man', 'type' => 'human'];
+$aryInsert[] = ['name' => 'スネ夫', 'gender' => 'man', 'type' => 'human'];
+$aryInsert[] = ['name' => 'しずか', 'gender' => 'woman', 'type' => 'human'];
+$aryInsert[] = ['name' => 'ドラミ', 'gender' => 'woman', 'type' => 'robot'];
+
+$aryColumn = array_keys($aryInsert[0]);
+
+//SQL文作成処理
+$sql = "INSERT INTO
+        doraemon_users
+        (".implode(',', $aryColumn).")
+        VALUES";
+
+$arySql1 = [];
+//行の繰り返し
+foreach($aryInsert as $key1 => $val1){
+    $arySql2 = [];
+    //列（カラム）の繰り返し
+    foreach($val1 as $key2 => $val2){
+        $arySql2[] = ':'.$key2.$key1;
+    }
+    $arySql1[] = '('.implode(',', $arySql2).')';
+}
+
+$sql .= implode(',', $arySql1);
+
+//bind処理
+$sth = $pdo -> prepare($sql);
+foreach($aryInsert as $key1 => $val1){
+    foreach($val1 as $key2 => $val2){
+        $sth -> bindValue(':'.$key2.$key1, $val2);
+    }
+}
+
+//実行処理
+$sth -> execute();
+
 
 ?>
