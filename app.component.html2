@@ -1,0 +1,67 @@
+<form class="form-field" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <!-- 名前のフォーム -->
+  <mat-form-field appearance="fill">
+      <mat-label>名前</mat-label>
+      <input matInput name="test" placeholder="名前を入力してください" [formControl]="name">
+      <mat-error *ngIf="name.errors?.['required']">必須です。</mat-error>
+  </mat-form-field>
+
+ <!-- <input  hidden="true"  matInput class="form-control" [formControl]="name"> -->
+
+  <!-- 住所のフォーム -->
+  <mat-form-field appearance="fill">
+      <mat-label>住所</mat-label>
+      <input matInput placeholder="住所を入力してください" [formControl]="address">
+      <mat-error *ngIf="address.errors?.['required']">必須です。</mat-error>
+  </mat-form-field>
+
+  <!-- 電話番号のフォーム -->
+  <mat-form-field appearance="fill">
+      <mat-label>電話番号</mat-label>
+      <input matInput placeholder="電話番号を入力してください" [formControl]="phone">
+      <mat-error *ngIf="phone.errors?.['required']">必須です。</mat-error>
+  </mat-form-field>
+
+  <!-- メールアドレスのフォーム -->
+  <mat-form-field appearance="fill">
+      <mat-label>メールアドレス</mat-label>
+      <input matInput placeholder="メールアドレスを入力してください" [formControl]="email">
+      <mat-error *ngIf="email.errors?.['required']">必須です。</mat-error>
+  </mat-form-field>
+
+  <!-- パスワードのフォーム -->
+  <mat-form-field appearance="fill">
+      <mat-label>パスワード</mat-label>
+      <input matInput placeholder="パスワードを入力してください" [formControl]="password">
+      <mat-error *ngIf="password.errors?.['required']">必須です。</mat-error>
+  </mat-form-field>
+
+  <!-- パスワード(確認用)のフォーム -->
+  <mat-form-field appearance="fill">
+      <mat-label>パスワード(確認用)</mat-label>
+      <input matInput placeholder="パスワード(確認用)を入力してください" [formControl]="passwordConfirm">
+      <mat-error *ngIf="passwordConfirm.errors?.['required']">必須です。</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Favorite food</mat-label>
+    <mat-select [formControl]="selectTest">
+      <mat-option *ngFor="let food of foods" [value]="food.value">
+        {{food.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button class="form-button" mat-raised-button color="primary" [disabled]="registerForm.invalid">登録する</button>
+
+    <!-- -->
+    <mat-form-field [class.cdk-visually-hidden]="variable">
+      <input matInput placeholder="Favorite food" [formControl]="name2">
+   </mat-form-field>
+
+   <mat-form-field [class.cdk-visually-hidden]="variable">
+    <input matInput placeholder="Favorite food2" [formControl]="selectTest2">
+  </mat-form-field>
+
+</form>
+
